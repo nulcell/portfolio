@@ -1,0 +1,13 @@
+node_modules
+dist
+.astro
+.git
+.github
+chart
+docker-compose.yml
+Dockerfile
+*.md
+!src/**/*.md
+Salimon_Oluwatoyin_Ayanleye_Resume_2024-10.pdf
+headshot.jpeg
+nulcell-logo.png

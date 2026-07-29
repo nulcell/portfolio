@@ -1,0 +1,77 @@
+replicaCount: 2
+
+image:
+  repository: nullcell/portfolio
+  # Pin to a version tag in production; "latest" is the rolling tag.
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+# Gateway API route (Cilium Gateway API). Preferred on homecloud.
+httpRoute:
+  enabled: false
+  # parentRefs pointing at your Gateway, e.g.:
+  # parentRefs:
+  #   - name: main-gateway
+  #     namespace: gateway
+  parentRefs: []
+  hostnames:
+    - nulcell.com
+    - www.nulcell.com
+    - me.nulcell.com
+
+# Classic Ingress alternative — enable one of httpRoute/ingress, not both.
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - nulcell.com
+    - www.nulcell.com
+    - me.nulcell.com
+  tls: []
+  # tls:
+  #   - secretName: nulcell-com-tls
+  #     hosts:
+  #       - nulcell.com
+  #       - www.nulcell.com
+  #       - me.nulcell.com
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 16Mi
+  limits:
+    memory: 64Mi
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 101
+  runAsGroup: 101
+  fsGroup: 101
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+podAnnotations: {}
+podLabels: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Rollout across nodes when replicaCount > 1
+topologySpreadConstraints: []

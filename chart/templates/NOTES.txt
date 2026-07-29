@@ -1,0 +1,13 @@
+{{ include "portfolio.fullname" . }} deployed.
+
+Image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+
+{{- if .Values.httpRoute.enabled }}
+HTTPRoute hostnames: {{ join ", " .Values.httpRoute.hostnames }}
+{{- else if .Values.ingress.enabled }}
+Ingress hosts: {{ join ", " .Values.ingress.hosts }}
+{{- else }}
+No route/ingress enabled — the site is only reachable in-cluster:
+  kubectl port-forward svc/{{ include "portfolio.fullname" . }} 8080:{{ .Values.service.port }}
+Enable .Values.httpRoute (Gateway API) or .Values.ingress to expose it.
+{{- end }}
