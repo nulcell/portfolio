@@ -5,7 +5,7 @@ date: 2026-07-28
 tags: ['astro', 'docker', 'kubernetes', 'helm', 'nginx', 'homecloud', 'cloudflare', 'talos']
 ---
 
-This site is deliberately boring infrastructure — the kind I like. Markdown
+This site is deliberately boring infrastructure, the kind I like. Markdown
 in, static HTML out, one small container, deployed like everything else on
 my cluster. Here's the whole pipeline.
 
@@ -27,7 +27,7 @@ src/
 ## The container
 
 A two-stage build: bun compiles the site, nginx serves it. The runtime image
-is `nginx-unprivileged` — it runs as a non-root user on port 8080, with
+is `nginx-unprivileged`, it runs as a non-root user on port 8080, with
 security headers, a strict CSP, and a `/health` endpoint for probes. The
 final image is ~25 MB of alpine plus static files.
 
@@ -39,7 +39,7 @@ FROM nginxinc/nginx-unprivileged:1.31-alpine-slim
 COPY --from=builder /app/dist /usr/share/nginx/html
 ```
 
-Images are built for both `linux/amd64` and `linux/arm64` — the cluster has
+Images are built for both `linux/amd64` and `linux/arm64`, the cluster has
 a x86 mini-PCs but my laptop is ARM, so multi-arch manifests mean the
 same image can run anywhere (mostly).
 
@@ -52,12 +52,11 @@ architectures and pushes to Docker Hub tagged with the version and
 
 ## The deployment
 
-A small Helm chart — Deployment, Service, and an HTTPRoute for the Cilium
-Gateway API — lands it on [homecloud](https://github.com/nulcell/homecloud).
+A small Helm chart  lands it on [homecloud](https://github.com/nulcell/homecloud).
 ArgoCD watches the repo and syncs, external-dns publishes relevant records,
 cert-manager sorts TLS, and traffic arrives through a Cloudflare tunnel
 so nothing at home is directly exposed.
 
 The result: writing a post is `git push`, and shipping a new version is
-`git tag`. Anything more would be overengineering — although, given the
+`git tag`. Anything more would be overengineering, although, given the
 cluster it runs on, that ship may have sailed.

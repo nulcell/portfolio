@@ -9,7 +9,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 const skills = [
   {
     group: 'Cloud & Infrastructure',
-    items: ['AWS', 'Kubernetes', 'Docker', 'Terraform', 'Talos', 'ArgoCD'],
+    items: ['AWS', 'Kubernetes', 'Docker', 'Terraform', 'Talos', 'ArgoCD', 'Okta'],
   },
   {
     group: 'Security',
@@ -35,6 +35,11 @@ const skills = [
       'Burp Suite Pro',
       'Grafana',
       'OpenSearch',
+      'Prometheus',
+      'Sysdig',
+      'Falco',
+      'Tailscale',
+      'Netskope',
     ],
   },
   {
@@ -209,18 +214,18 @@ const fmt = new Intl.DateTimeFormat('en-GB', {
   <section class="prose">
     <h2>About</h2>
     <p>
-      I design, deploy, and secure cloud infrastructure — mostly on AWS, and
-      increasingly on Kubernetes. I've led ISO 27001 and SOC 2 Type II
-      certification efforts end to end, built out vulnerability management
-      programmes, and spent enough time on the offensive side (bug bounties,
-      web app testing) to know how the things I build actually get broken.
+      I design, deploy, and secure cloud infrastructure on AWS and Kubernetes.
+      I've led ISO 27001 and SOC 2 Type II certification efforts end to end,
+      built out vulnerability management systems, and spent some time on the dark side 
+      (bug bounties, penetration testing, and web app testing) to know how the things get broken.
     </p>
     <p>
       Outside work I run <a href="https://github.com/nulcell/homecloud"
         >homecloud</a
       >, a bare-metal Kubernetes cluster that hosts this site and a growing
-      collection of self-hosted services — because the best way to understand
-      cloud platforms is to build a small one yourself.
+      collection of self-hosted <a href="https://status.nulcell.com/status/services"
+        >services</a
+      > to understand cloud-native systems and learn from building a small one.
     </p>
   </section>
 
