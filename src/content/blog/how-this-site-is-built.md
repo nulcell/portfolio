@@ -13,8 +13,7 @@ my cluster. Here's the whole pipeline.
 
 [Astro](https://astro.build) builds the pages. The about page is a single
 component; blog posts like this one are markdown files in a content
-collection with a typed frontmatter schema. No client-side framework ships
-to the browser — the only JavaScript on the page is the theme toggle.
+collection with a typed frontmatter schema.
 
 ```text
 src/
