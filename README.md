@@ -1,13 +1,13 @@
 # nulcell.com
 
-Personal portfolio and blog for [Toyin Ayanleye](https://nulcell.com) —
+Personal portfolio and blog for [Toyin Ayanleye](https://nulcell.com) -
 Astro static site, served by nginx, deployed on the
 [homecloud](https://github.com/nulcell/homecloud) Kubernetes cluster at
 `nulcell.com`, `www.nulcell.com`, and/or `me.nulcell.com`.
 
 ## Stack
 
-- [Astro](https://astro.build) — about page + markdown blog (content collection in `src/content/blog/`)
+- [Astro](https://astro.build) - about page + markdown blog (content collection in `src/content/blog/`)
 - bun 1.3 for install/build, pinned via [mise](https://mise.jdx.dev)
 - `oven/bun:1.3-alpine` builder → `nginxinc/nginx-unprivileged:1.31-alpine-slim` runtime
 - Helm chart in `chart/` (Deployment, Service, Gateway API HTTPRoute or Ingress)
@@ -71,5 +71,5 @@ httpRoute:
 ```
 
 With neither `httpRoute` nor `ingress` enabled, the chart only creates the
-Deployment + Service — fine when a Cloudflare tunnel points straight at the
+Deployment + Service - fine when a Cloudflare tunnel points straight at the
 Service.

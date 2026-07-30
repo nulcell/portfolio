@@ -1,6 +1,6 @@
 apiVersion: v2
 name: portfolio
-description: nulcell.com — personal portfolio site (static Astro build served by nginx)
+description: nulcell.com - personal portfolio site (static Astro build served by nginx)
 type: application
 version: 1.0.0
 appVersion: "1.0.0"

@@ -28,7 +28,7 @@ httpRoute:
     - www.nulcell.com
     - me.nulcell.com
 
-# Classic Ingress alternative — enable one of httpRoute/ingress, not both.
+# Classic Ingress alternative - enable one of httpRoute/ingress, not both.
 ingress:
   enabled: false
   className: ""
