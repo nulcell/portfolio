@@ -1,13 +1,18 @@
-{{ include "portfolio.fullname" . }} deployed.
+Portfolio has been deployed.
 
 Image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
 
-{{- if .Values.httpRoute.enabled }}
-HTTPRoute hostnames: {{ join ", " .Values.httpRoute.hostnames }}
-{{- else if .Values.ingress.enabled }}
-Ingress hosts: {{ join ", " .Values.ingress.hosts }}
+{{- if .Values.gateway.enabled }}
+Origin hostname: https://{{ .Values.gateway.hostname }}
+
+This is the in-cluster origin, not the published address. Public hostnames are
+served by the cloudflared tunnel, which rewrites the Host header to the above.
 {{- else }}
-No route/ingress enabled - the site is only reachable in-cluster:
-  kubectl port-forward svc/{{ include "portfolio.fullname" . }} 8080:{{ .Values.service.port }}
-Enable .Values.httpRoute (Gateway API) or .Values.ingress to expose it.
+Gateway routing is disabled. Configure your own HTTPRoute or cloudflared tunnel to expose the service.
+
+Internal service: {{ .Values.service.name }}.{{ include "portfolio.namespace" . }}.svc.cluster.local:{{ .Values.service.port }}
 {{- end }}
+
+The container serves a read-only root filesystem; nginx scratch space is an
+emptyDir at /tmp. Probes hit /health — that location must exist in the image's
+nginx config or pods will never become ready.
