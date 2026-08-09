@@ -1,6 +1,6 @@
 # nulcell.com
 
-Personal portfolio and blog for [Toyin Ayanleye](https://nulcell.com) -
+Personal portfolio and blog for [Salimon Oluwatoyin Ayanleye](https://nulcell.com) -
 Astro static site, served by nginx, deployed on the
 [homecloud](https://github.com/nulcell/homecloud) Kubernetes cluster at
 `nulcell.com`, `www.nulcell.com`, and/or `me.nulcell.com`.
