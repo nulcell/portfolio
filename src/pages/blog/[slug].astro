@@ -12,18 +12,12 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-
-const fmt = new Intl.DateTimeFormat('en-GB', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-});
 ---
 
 <Base title={`${post.data.title} - Salimon Oluwatoyin Ayanleye`} description={post.data.description}>
   <header class="article-header">
     <span class="post-date">
-      {fmt.format(post.data.date)}
+      {post.data.date.toLocaleDateString('en-GB', { dateStyle: 'long' })}
       {post.data.tags.length > 0 && ` · ${post.data.tags.join(', ')}`}
     </span>
     <h1>{post.data.title}</h1>

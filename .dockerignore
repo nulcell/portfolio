@@ -2,9 +2,3 @@ node_modules
 dist
 .astro
 .git
-.github
-chart
-docker-compose.yml
-Dockerfile
-*.md
-!src/**/*.md

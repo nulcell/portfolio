@@ -18,11 +18,14 @@ Astro static site, served by nginx, deployed on the
 ```bash
 mise install            # install pinned tools (bun, helm)
 mise run install        # install site dependencies
-mise run dev            # Astro dev server
+bun dev                 # Astro dev server
+bun run preview         # preview the production build
 mise run build          # build static site to dist/
-mise run stack:up       # build + run the container locally (docker compose)
 mise run helm:lint      # lint the chart
 mise run ci             # full CI pipeline (build + chart lint)
+
+# run the real image locally
+docker run --rm -p 8080:8080 $(docker build -q .)
 ```
 
 ## Writing a post

@@ -1,43 +1,28 @@
+/* light-dark() picks per token off the used color-scheme, so the palette is
+   declared once. data-theme only pins the scheme; no theme follows the OS. */
 :root {
+  color-scheme: light dark;
+
   --accent: #0a9de0;
   --accent-strong: #0782bb;
   --accent-soft: rgba(10, 157, 224, 0.12);
+  --tag-text: light-dark(#0782bb, #6cc8f2);
 
-  --bg: #fcfdfe;
-  --bg-soft: #f1f5f9;
-  --surface: #ffffff;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --text-muted: #55657a;
-  --shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --bg: light-dark(#fcfdfe, #0b1120);
+  --bg-soft: light-dark(#f1f5f9, #101a2e);
+  --surface: light-dark(#ffffff, #111c31);
+  --border: light-dark(#e2e8f0, #24324c);
+  --text: light-dark(#0f172a, #e6edf6);
+  --text-muted: light-dark(#55657a, #93a4bc);
+  --shadow: 0 1px 3px light-dark(rgba(15, 23, 42, 0.08), rgba(0, 0, 0, 0.4));
+}
 
+:root[data-theme='light'] {
   color-scheme: light;
 }
 
 :root[data-theme='dark'] {
-  --bg: #0b1120;
-  --bg-soft: #101a2e;
-  --surface: #111c31;
-  --border: #24324c;
-  --text: #e6edf6;
-  --text-muted: #93a4bc;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --bg: #0b1120;
-    --bg-soft: #101a2e;
-    --surface: #111c31;
-    --border: #24324c;
-    --text: #e6edf6;
-    --text-muted: #93a4bc;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-
-    color-scheme: dark;
-  }
 }
 
 * {
@@ -404,19 +389,9 @@ a.card:hover {
   padding: 0.22rem 0.65rem;
   border-radius: 999px;
   background: var(--accent-soft);
-  color: var(--accent-strong);
+  color: var(--tag-text);
   font-size: 0.84rem;
   font-weight: 500;
-}
-
-:root[data-theme='dark'] .tags li {
-  color: #6cc8f2;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .tags li {
-    color: #6cc8f2;
-  }
 }
 
 /* ---------- blog list ---------- */
