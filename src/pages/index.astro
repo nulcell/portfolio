@@ -56,7 +56,7 @@ const experience = [
     location: 'Amsterdam, NL',
     period: 'Nov 2024 - Present',
     blurb:
-      'Runtime and cloud workload security across AWS, GCP, and Azure. I threat model and approve every infrastructure change that ships, and built the vulnerability management platform the security team runs on. SOC 2 Type II and ISO 27001.',
+      "Own runtime and cloud workload security across AWS, GCP, and Azure, threat modelling every infrastructure change before it ships. Built the vulnerability management platform the security team now reports from, and lead the infrastructure security side of SOC 2 Type II and ISO 27001.",
   },
   {
     role: 'Cloud Engineer',
@@ -64,7 +64,7 @@ const experience = [
     location: 'Amsterdam, NL',
     period: 'Dec 2023 - Oct 2024',
     blurb:
-      'Led ISO 27001 and SOC 2 Type II certification, cut impactful vulnerabilities by 60%, and redesigned CI/CD pipelines while keeping AWS costs trending down.',
+      "Took ISO 27001 from control design through certification, cut impactful vulnerabilities by 60% through better triage, and redesigned CI/CD pipelines across multiple services while trimming AWS costs.",
   },
   {
     role: 'Data Engineer',
@@ -72,7 +72,7 @@ const experience = [
     location: 'Amsterdam, NL',
     period: 'Jun 2022 - Dec 2023',
     blurb:
-      'Built 20+ serverless applications and 10+ containerised services in Python; cut AWS compute costs +20%.',
+      'Built 20+ serverless applications and 10+ containerised Python services for data acquisition, lifting processing speed by 40%.',
   },
 ];
 
@@ -88,44 +88,45 @@ const certifications = [
 const projects = [
   {
     name: 'meridian',
+    href: 'https://github.com/nulcell/meridian',
     blurb:
-      'A system of record for security decisions. Scanners detect; nothing owns what the team decided. Risk acceptance with approvals and expiry, remediation validated against live findings, and one-call evidence export for auditors.',
+      'System of record for security decisions: risk acceptance with expiry, validated remediation, and one-call evidence export for auditors.',
     meta: 'Go · Postgres · In development',
   },
   {
     name: 'homecloud',
     href: 'https://github.com/nulcell/homecloud',
     blurb:
-      'Self-hosted private cloud on bare metal - Talos, Cilium, ArgoCD, Longhorn, KubeVirt. The cluster this site runs on.',
+      'Self-hosted private cloud on bare metal - Talos, Cilium, ArgoCD, Longhorn, KubeVirt. The cluster this site and its services run on.',
     meta: 'Kubernetes · GitOps',
   },
   {
     name: 'portfolio',
     href: 'https://github.com/nulcell/portfolio',
     blurb:
-      'This website...',
-    meta: 'Astro · Professional',
+      'This site: Astro, hand-written copy, self-hosted on homecloud, deployed via GitOps and Helm.',
+    meta: 'Astro · Self-hosted',
+  },
+  {
+    name: 'neovim-config',
+    href: 'https://github.com/nulcell/neovim-config',
+    blurb:
+      'Neovim config on lazy.nvim - LSP, formatting, and per-filetype setup for the stack I actually use: Go, Python, Terraform, YAML.',
+    meta: 'Lua · Dotfiles',
   },
   {
     name: 'Tools-Install',
     href: 'https://github.com/nulcell/Tools-Install',
     blurb:
-      'Automated installer and checker for common cybersecurity tooling.',
+      'Installer and version checker for the cybersecurity tools I reach for most, so a fresh box is provisioned in one run.',
     meta: 'Shell',
   },
   {
     name: 'proxy-forward',
     href: 'https://github.com/nulcell/proxy-forward',
     blurb:
-      'Pivot helper: proxies ports on internal machines and generates the port-forward command for the attacker box.',
+      'Pivot helper for internal networks: proxies ports on the pivot host and prints the port-forward command for the attacker box.',
     meta: 'Shell · Red team',
-  },
-  {
-    name: 'neovim-config',
-    href: 'https://github.com/nulcell/neovim-config',
-    blurb:
-      'Neovim config with lazy.nvim. LSP, formatting, and per-filetype setup for the stack I actually work in: Go, Python, Terraform, and YAML.',
-    meta: 'Lua · Dotfiles',
   },
 ];
 
@@ -215,13 +216,12 @@ const socials = [
     <h2>About</h2>
     <p>
       I secure cloud infrastructure at the layer where it actually runs: Kubernetes,
-      containers, and the network between them. At Mambu that means runtime and cloud
-      workload security across AWS, GCP, and Azure, threat modelling every
-      infrastructure change before it ships, and keeping all of it auditable against
-      SOC 2 Type II and ISO 27001. I've led those certifications end-to-end before, I
-      build the tooling rather than just buy it, and I've spent enough time on the dark
-      side (bug bounties, penetration testing, and web app testing) to know how things
-      get broken.
+      containers, and the network between them - runtime and cloud workload security
+      across AWS, GCP, and Azure, threat modelling infrastructure changes before they
+      ship, and keeping all of it auditable against SOC 2 Type II and ISO 27001. I've
+      led those certifications end-to-end before, I can build the tooling rather than just
+      buy it, and I've spent enough time on the dark side (bug bounties, penetration
+      testing, and web app testing) to know how things get broken.
     </p>
     <p>
       I care a lot about privacy and data ownership. It's why I'd rather run something
