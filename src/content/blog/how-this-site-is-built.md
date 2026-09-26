@@ -1,8 +1,8 @@
 ---
-title: 'How this site is built and shipped'
-description: 'Astro to static HTML, one hardened nginx container, multi-arch images, and a Helm chart onto the homelab cluster.'
+title: "How this site is built and shipped"
+description: "Astro to static HTML, one hardened nginx container, multi-arch images, and a Helm chart onto the homelab cluster."
 date: 2026-07-28
-tags: ['astro', 'docker', 'kubernetes', 'helm', 'nginx', 'homecloud', 'cloudflare', 'talos']
+tags: ["astro", "docker", "kubernetes", "helm", "nginx", "homecloud", "cloudflare", "talos"]
 ---
 
 This site is deliberately boring infrastructure, the kind I like. Markdown
@@ -51,7 +51,7 @@ architectures and pushes to Docker Hub tagged with the version and
 
 ## The deployment
 
-A small Helm chart  lands it on [homecloud](https://github.com/nulcell/homecloud).
+A small Helm chart lands it on [homecloud](https://github.com/nulcell/homecloud).
 ArgoCD watches the repo and syncs, external-dns publishes relevant records,
 cert-manager sorts TLS, and traffic arrives through a Cloudflare tunnel
 so nothing at home is directly exposed.

@@ -1,8 +1,8 @@
 ---
 title: 'homecloud: a private "cloud" on bare metal'
-description: 'Why I run a Kubernetes cluster at home - Talos, Cilium, ArgoCD, and the security stack that watches over it.'
+description: "Why I run a Kubernetes cluster at home - Talos, Cilium, ArgoCD, and the security stack that watches over it."
 date: 2026-07-29
-tags: ['homelab', 'kubernetes', 'security', 'talos', 'cilium', 'argo', 'cloudflare', 'falco']
+tags: ["homelab", "kubernetes", "security", "talos", "cilium", "argo", "cloudflare", "falco"]
 ---
 
 The site you're reading right now is not on Vercel, Netlify, or a $5 VPS.
