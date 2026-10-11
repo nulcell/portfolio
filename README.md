@@ -1,17 +1,17 @@
 # nulcell.com
 
-Personal portfolio and blog for [Salimon Oluwatoyin Ayanleye](https://nulcell.com) -
-Astro static site, served by nginx, deployed on the
+Personal portfolio and blog for [Salimon Oluwatoyin Ayanleye](https://nulcell.com).
+It is an Astro static site served by nginx and deployed on the
 [homecloud](https://github.com/nulcell/homecloud) Kubernetes cluster at
 `nulcell.com`, `www.nulcell.com`, and/or `me.nulcell.com`.
 
 ## Stack
 
-- [Astro](https://astro.build) - about page + markdown blog (content collection in `src/content/blog/`)
-- bun 1.3 for install/build, pinned via [mise](https://mise.jdx.dev)
-- `oven/bun:1.3-alpine` builder → `nginxinc/nginx-unprivileged:1.31-alpine-slim` runtime
+- [Astro](https://astro.build) for the about page and the markdown blog (content collection in `src/content/blog/`)
+- bun 1.3 for install and build, pinned via [mise](https://mise.jdx.dev)
+- `oven/bun:1.3-alpine` builder, `nginxinc/nginx-unprivileged:1.31-alpine-slim` runtime
 - Helm chart in `chart/` (Deployment, Service, Gateway API HTTPRoute or Ingress)
-- GitHub Actions → multi-arch (amd64 + arm64) image on Docker Hub (`nullcell/portfolio`)
+- GitHub Actions builds a multi-arch (amd64 and arm64) image on Docker Hub (`nullcell/portfolio`)
 
 ## Common commands
 
@@ -44,7 +44,7 @@ draft: false
 Content here.
 ```
 
-The filename becomes the URL: `my-post.md` → `/blog/my-post/`.
+The filename becomes the URL: `my-post.md` becomes `/blog/my-post/`.
 
 ## Releases
 
@@ -53,12 +53,12 @@ version tag publishes the image:
 
 ```bash
 git tag v1.0.0 && git push --tags
-# → docker.io/nullcell/portfolio:1.0.0 + :latest (linux/amd64 + linux/arm64)
+# publishes docker.io/nullcell/portfolio:1.0.0 and :latest (linux/amd64 and linux/arm64)
 ```
 
-Requires `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` as GitHub Actions
-secrets (already available if the repo runs self-hosted runners on the
-cluster with those secrets configured).
+This needs `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` as GitHub Actions
+secrets. They are already available if the repo runs self-hosted runners on the
+cluster with those secrets configured.
 
 ## Deploying
 
@@ -74,5 +74,5 @@ httpRoute:
 ```
 
 With neither `httpRoute` nor `ingress` enabled, the chart only creates the
-Deployment + Service - fine when a Cloudflare tunnel points straight at the
+Deployment and Service, which is fine when a Cloudflare tunnel points straight at the
 Service.

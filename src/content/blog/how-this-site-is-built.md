@@ -7,7 +7,7 @@ tags: ["astro", "docker", "kubernetes", "helm", "nginx", "homecloud", "cloudflar
 
 This site is deliberately boring infrastructure, the kind I like. Markdown
 in, static HTML out, one small container, deployed like everything else on
-my cluster. Here's the whole pipeline.
+my cluster.
 
 ## The site
 
@@ -26,7 +26,7 @@ src/
 ## The container
 
 A two-stage build: bun compiles the site, nginx serves it. The runtime image
-is `nginx-unprivileged`, it runs as a non-root user on port 8080, with
+is `nginx-unprivileged`. It runs as a non-root user on port 8080, with
 security headers, a strict CSP, and a `/health` endpoint for probes. The
 final image is ~25 MB of alpine plus static files.
 
@@ -38,8 +38,8 @@ FROM nginxinc/nginx-unprivileged:1.31-alpine-slim
 COPY --from=builder /app/dist /usr/share/nginx/html
 ```
 
-Images are built for both `linux/amd64` and `linux/arm64`, the cluster has
-a x86 mini-PCs but my laptop is ARM, so multi-arch manifests mean the
+Images are built for both `linux/amd64` and `linux/arm64`. The cluster runs
+on x86 mini-PCs but my laptop is ARM, so multi-arch manifests mean the
 same image can run anywhere (mostly).
 
 ## The pipeline

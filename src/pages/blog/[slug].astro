@@ -14,7 +14,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Base title={`${post.data.title} - Salimon Oluwatoyin Ayanleye`} description={post.data.description}>
+<Base title={`${post.data.title} | Salimon Oluwatoyin Ayanleye`} description={post.data.description}>
   <header class="article-header">
     <span class="post-date">
       {post.data.date.toLocaleDateString('en-GB', { dateStyle: 'long' })}

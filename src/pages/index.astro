@@ -54,25 +54,25 @@ const experience = [
     role: 'Security Engineer II',
     org: 'Mambu',
     location: 'Amsterdam, NL',
-    period: 'Nov 2024 - Present',
+    period: 'Nov 2024 to Present',
     blurb:
-      "Own runtime and cloud workload security across AWS, GCP, and Azure, threat modelling every infrastructure change before it ships. Built the vulnerability management platform the security team now reports from, and lead the infrastructure security side of SOC 2 Type II and ISO 27001.",
+      "I own runtime and cloud workload security across AWS, GCP, and Azure, and threat model every infrastructure change before it ships. I built the vulnerability management platform the security team now reports from, and I lead the infrastructure security side of SOC 2 Type II and ISO 27001.",
   },
   {
     role: 'Cloud Engineer',
     org: 'AMMP Technologies',
     location: 'Amsterdam, NL',
-    period: 'Dec 2023 - Oct 2024',
+    period: 'Dec 2023 to Oct 2024',
     blurb:
-      "Took ISO 27001 from control design through certification, cut impactful vulnerabilities by 60% through better triage, and redesigned CI/CD pipelines across multiple services while trimming AWS costs.",
+      "I took ISO 27001 from control design through certification, cut impactful vulnerabilities by 60% through better triage, and redesigned CI/CD pipelines across multiple services while trimming AWS costs.",
   },
   {
     role: 'Data Engineer',
     org: 'AMMP Technologies',
     location: 'Amsterdam, NL',
-    period: 'Jun 2022 - Dec 2023',
+    period: 'Jun 2022 to Dec 2023',
     blurb:
-      'Built 20+ serverless applications and 10+ containerised Python services for data acquisition, lifting processing speed by 40%.',
+      'I built 20+ serverless applications and 10+ containerised Python services for data acquisition, lifting processing speed by 40%.',
   },
 ];
 
@@ -87,6 +87,27 @@ const certifications = [
 
 const projects = [
   {
+    name: 'homecloud',
+    href: 'https://github.com/nulcell/homecloud',
+    blurb:
+      'Self-hosted private cloud on bare metal: Talos, Cilium, ArgoCD, Longhorn, KubeVirt. The cluster this site and its services run on.',
+    meta: 'Shell · Kubernetes · GitOps',
+  },
+  {
+    name: 'dotfiles',
+    href: 'https://github.com/nulcell/dotfiles',
+    blurb:
+      'Shell, tmux, Brewfile, Claude config and the Neovim setup (LSP and formatting for Go, Python, Terraform, YAML) in one repo.',
+    meta: 'Shell · Neovim · Dotfiles',
+  },
+  {
+    name: 'charts',
+    href: 'https://github.com/nulcell/charts',
+    blurb:
+      'Helm charts published to OCI. app-template is a Compose-style chart that renders Kubernetes workloads, routes and network policy from one values file.',
+    meta: 'Helm · OCI',
+  },
+  {
     name: 'meridian',
     href: 'https://github.com/nulcell/meridian',
     blurb:
@@ -94,39 +115,11 @@ const projects = [
     meta: 'Go · Postgres · In development',
   },
   {
-    name: 'homecloud',
-    href: 'https://github.com/nulcell/homecloud',
-    blurb:
-      'Self-hosted private cloud on bare metal - Talos, Cilium, ArgoCD, Longhorn, KubeVirt. The cluster this site and its services run on.',
-    meta: 'Kubernetes · GitOps',
-  },
-  {
     name: 'portfolio',
     href: 'https://github.com/nulcell/portfolio',
     blurb:
       'This site: Astro, hand-written copy, self-hosted on homecloud, deployed via GitOps and Helm.',
     meta: 'Astro · Self-hosted',
-  },
-  {
-    name: 'neovim-config',
-    href: 'https://github.com/nulcell/neovim-config',
-    blurb:
-      'Neovim config on lazy.nvim - LSP, formatting, and per-filetype setup for the stack I actually use: Go, Python, Terraform, YAML.',
-    meta: 'Lua · Dotfiles',
-  },
-  {
-    name: 'Tools-Install',
-    href: 'https://github.com/nulcell/Tools-Install',
-    blurb:
-      'Installer and version checker for the cybersecurity tools I reach for most, so a fresh box is provisioned in one run.',
-    meta: 'Shell',
-  },
-  {
-    name: 'proxy-forward',
-    href: 'https://github.com/nulcell/proxy-forward',
-    blurb:
-      'Pivot helper for internal networks: proxies ports on the pivot host and prints the port-forward command for the attacker box.',
-    meta: 'Shell · Red team',
   },
 ];
 
@@ -163,15 +156,15 @@ const socials = [
     path: 'M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM2 7l10 6L22 7',
   },
   {
-    name: 'Résumé',
-    href: '/resume.pdf',
+    name: 'Confidential',
+    href: '/confidential',
     stroke: true,
-    path: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M9 13h6M9 17h6',
+    path: 'M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4',
   },
 ];
 ---
 
-<Base title="Salimon Oluwatoyin Ayanleye - Security Engineer">
+<Base title="Salimon Oluwatoyin Ayanleye, Security Engineer">
   <section class="hero">
     <img
       class="headshot"
@@ -216,12 +209,12 @@ const socials = [
     <h2>About</h2>
     <p>
       I secure cloud infrastructure at the layer where it actually runs: Kubernetes,
-      containers, and the network between them - runtime and cloud workload security
-      across AWS, GCP, and Azure, threat modelling infrastructure changes before they
-      ship, and keeping all of it auditable against SOC 2 Type II and ISO 27001. I've
-      led those certifications end-to-end before, I can build the tooling rather than just
-      buy it, and I've spent enough time on the dark side (bug bounties, penetration
-      testing, and web app testing) to know how things get broken.
+      containers, and the network between them. That means runtime and cloud workload
+      security across AWS, GCP, and Azure, threat modelling infrastructure changes
+      before they ship, and keeping all of it auditable against SOC 2 Type II and
+      ISO 27001. I've led those certifications end to end before and I can build the
+      tooling rather than just buy it. Bug bounties, penetration testing, and web app
+      testing taught me how things get broken.
     </p>
     <p>
       I care a lot about privacy and data ownership. It's why I'd rather run something
@@ -233,7 +226,7 @@ const socials = [
       >, a bare-metal Kubernetes cluster that hosts this site and a growing
       collection of self-hosted <a href="https://status.nulcell.com/status/services"
         >services</a
-      > to understand cloud-native systems and learn from building a small one.
+      >. Building a small cloud myself is how I learn cloud-native systems.
     </p>
   </section>
 
