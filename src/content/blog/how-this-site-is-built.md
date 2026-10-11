@@ -1,6 +1,6 @@
 ---
 title: "How this site is built and shipped"
-description: "Astro to static HTML, one hardened nginx container, multi-arch images, and a Helm chart onto the homelab cluster."
+description: "Astro to static HTML, one hardened nginx container, multi-arch images, and the app-template chart onto the homelab cluster."
 date: 2026-07-28
 tags: ["astro", "docker", "kubernetes", "helm", "nginx", "homecloud", "cloudflare", "talos"]
 ---
@@ -51,11 +51,15 @@ architectures and pushes to Docker Hub tagged with the version and
 
 ## The deployment
 
-A small Helm chart lands it on [homecloud](https://github.com/nulcell/homecloud).
+The site has no chart of its own. [homecloud](https://github.com/nulcell/homecloud)
+deploys it with `app-template`, a Compose-style chart from
+[nulcell/charts](https://github.com/nulcell/charts), and the whole config is a
+[values file](https://github.com/nulcell/homecloud/tree/main/gitops/apps/portfolio):
+two replicas, an HTTPRoute, and a network policy that only lets the gateway in.
 ArgoCD watches the repo and syncs, external-dns publishes relevant records,
 cert-manager sorts TLS, and traffic arrives through a Cloudflare tunnel
 so nothing at home is directly exposed.
 
 The result: writing a post is `git push`, and shipping a new version is
-`git tag`. Anything more would be overengineering, although, given the
+`git tag` plus an image tag bump in that values file. Anything more would be overengineering, although, given the
 cluster it runs on, that ship may have sailed.

@@ -11,18 +11,18 @@ permissions:
 
 jobs:
   build:
-    name: Build site + lint chart
+    name: Build site
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
 
-      - name: Install mise (bun, helm)
+      - name: Install mise (bun)
         uses: jdx/mise-action@v5
 
       - name: Install dependencies
         run: mise run install
 
-      - name: CI (site build + helm lint)
+      - name: CI (site build)
         run: mise run ci
 
   release:

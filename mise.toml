@@ -1,7 +1,6 @@
 [tools]
 bun = "1.3"
 node = "24" # Astro requires >= 22.12.0
-helm = "3"
 
 [settings]
 experimental = true
@@ -17,10 +16,6 @@ run = "bun install"
 description = "Build the static site"
 run = "bun run build"
 
-[tasks."helm:lint"]
-description = "Lint the Helm chart"
-run = "helm lint chart"
-
 [tasks.ci]
-description = "Full CI pipeline (build + chart lint)"
-depends = ["build", "helm:lint"]
+description = "Full CI pipeline"
+depends = ["build"]

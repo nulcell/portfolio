@@ -33,8 +33,10 @@ later means an OS upgrade. Machine config lives as patches in the repo;
 nothing is hand-edited on the node.
 
 Topology today is deliberately honest: one control-plane node with
-scheduling enabled, Longhorn replica count 1, etcd quorum of 1. The plan
-is to jump straight from 1 to 3 control planes when the hardware arrives.
+scheduling enabled plus one worker, and an etcd quorum of 1. Longhorn
+uses replica 2 so draining a node never blocks. The plan is to jump
+straight from 1 to 3 control planes when the hardware arrives, because
+two-node etcd is worse than one.
 
 Above the OS:
 
@@ -52,9 +54,9 @@ Above the OS:
   [KubeVirt](https://kubevirt.io/) with CDI runs the workloads that still
   want to be VMs.
 
-A bootstrap script installs only Cilium and ArgoCD imperatively.
-Everything else (cert-manager, Longhorn, monitoring, gateways, and every
-workload) is GitOps from the first reconcile.
+A helmfile bootstrap installs only the Gateway API CRDs, Cilium and
+ArgoCD. Everything else (cert-manager, Longhorn, monitoring, gateways, and
+every workload) is GitOps from the first reconcile.
 
 ## Secrets: from SOPS to a secret store
 
@@ -66,8 +68,9 @@ same values already lived in my password manager.
 So secrets moved to the External Secrets Operator with a
 `ClusterSecretStore` backed by 1Password. Manifests now reference a vault
 item by name; ESO materialises the Kubernetes Secret and refreshes it on a
-schedule. Nothing sensitive is in git, and the SOPS setup is parked in
-`experimental/` in case I want it back for air-gapped material.
+schedule. Nothing sensitive is in git. SOPS survives in one place: it
+encrypts the 1Password credential that ESO itself needs, and the bootstrap
+decrypts it. ArgoCD decrypts nothing.
 
 ## Getting traffic in
 
@@ -81,10 +84,9 @@ external-dns writes the records.
 Anything public goes out through cloudflared. The tunnel forwards a
 public hostname to the internal gateway service inside the cluster and
 rewrites the Host header to the matching `*.internal` name, so the same
-HTTPRoute serves both paths. A post-sync Job runs
-`cloudflared tunnel route dns` for each hostname, which means adding a
-public service is a values entry rather than a click in the Cloudflare
-dashboard.
+HTTPRoute serves both paths. A DNS registration job creates the tunnel
+record for each hostname, which means adding a public service is a values
+entry rather than a click in the Cloudflare dashboard.
 
 The result: no ports open on my router, no home IP in public DNS. For
 administrative access there's a Tailscale operator in-cluster, and Tailscale
@@ -108,12 +110,11 @@ the response engine. Talon can terminate or isolate a pod on a matching detectio
 Kubernetes event. Automated response in a homelab is low-stakes enough to
 actually experiment with.
 
-Trivy Operator and Kubescape have both had a run in this cluster, covering image
-scanning, SBOMs, exposed-secret detection, RBAC assessment, and CIS/NSA posture
-reports. Both are currently parked in the experimental tree: on a
-single node they cost more CPU than the signal was worth, and Kubescape's
-operator queue does not enjoy Trivy's ephemeral scan jobs. They come back
-when there are more nodes to spread them across.
+Trivy Operator handles posture scanning: vulnerability, config audit,
+exposed-secret and RBAC reports, which I browse in Headlamp through its
+plugin. Kubescape had a run too and is parked in the experimental tree. Its
+operator queue did not get along with Trivy's ephemeral scan jobs on a
+single node. Kyverno is next for policy enforcement.
 
 ## Observability
 
@@ -125,19 +126,20 @@ the times a dashboard beats `kubectl` (but I end up using k9s most of the time).
 
 ## What actually runs on it
 
-The live list is on the [status page](https://status.nulcell.com/status/services)
-(Uptime Kuma), also running in the cluster, which is either good practice or
-a conflict of interest depending on how the day is going. Roughly three
-groups:
+The live list is on the [status page](https://status.nulcell.com)
+(Gatus, which replaced Uptime Kuma), also running in the cluster, which is
+either good practice or a conflict of interest depending on how the day is
+going. Roughly three groups:
 
 - Apps: [Authentik](https://goauthentik.io/) for identity,
   [n8n](https://n8n.io/) for workflow automation,
-  [Outline](https://www.getoutline.com/) as a wiki, Actual Budget, and a
-  Homarr dashboard tying them together.
-- Media: Jellyfin, Seerr, Sonarr, Radarr, Prowlarr, and qBittorrent
+  [Mealie](https://mealie.io/) for recipes, Actual Budget, and this site.
+- Media: Jellyfin, Seerr, Sonarr, Radarr, Bazarr, Prowlarr, and qBittorrent
   behind a Gluetun VPN sidecar.
-- Internal: ArgoCD, Grafana, Headlamp, Longhorn, and a speedtest
-  tracker that exists mostly so I have receipts when the ISP disappoints me.
+- Internal: ArgoCD, Grafana, Headlamp, Longhorn, and Falcosidekick.
+
+Outline, Homarr and the speedtest tracker (kept mostly so I have receipts
+when the ISP disappoints me) are parked in the experimental tree.
 
 Chart and image versions are handled by Renovate, which opens PRs against
 the repo every few hours; local CLI versions are pinned with
@@ -146,12 +148,14 @@ being able to operate the cluster.
 
 ## What's next
 
-The roadmap has more items than free evenings. In rough priority: backups
-(etcd and Longhorn to S3; the cluster is one node away from losing things I
-would not miss), the 3-node HA control plane and a 2.5GbE upgrade to go with it,
-a proper device plugin so Jellyfin can reach the iGPU without
-`privileged: true`, policy enforcement with Kyverno, and Knative plus
-RabbitMQ for event-driven workloads.
+Backups landed since I first wrote this: Longhorn volumes go to S3 (opt-in
+per PVC), and Postgres archives WAL and base backups through the CNPG
+barman plugin. I rehearsed a point-in-time restore too.
+
+The roadmap still has more items than free evenings. In rough priority: the
+3-node HA control plane with a 2.5GbE upgrade to go with it, policy
+enforcement with Kyverno, and Knative plus RabbitMQ for event-driven
+workloads.
 
 If any of this sounds interesting, the whole setup is public at
 [nulcell/homecloud](https://github.com/nulcell/homecloud) with configs,
